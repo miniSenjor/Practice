@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Practika
@@ -19,16 +12,51 @@ namespace Practika
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
+            Application.Exit();
+        }
+
+        private void btnReg_Click(object sender, EventArgs e)
+        {
+            if (txtPasswordReg1.Text != txtPasswordReg2.Text)
+            {
+                FormErrorShowDialog formError = new FormErrorShowDialog("Введен неверный логин или пароль");
+                formError.ShowDialog();
+                return;
+            }
             this.Close();
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void btnEntr_Click(object sender, EventArgs e)
         {
-            if (guna2TextBox1.Text!="" && guna2TextBox2.Text==guna2TextBox3.Text)
+            if (txtLoginEntr.Text == "")
             {
-                Form1 form = new Form1();
-                
+                FormErrorShowDialog formError = new FormErrorShowDialog("Введен неверный логин или пароль");
+                formError.ShowDialog();
+                return;
             }
+            this.Close();
+        }
+
+        private void chkShowPasswordReg_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkShowPasswordReg.Checked)
+            {
+                txtPasswordReg1.PasswordChar = '\0';
+                txtPasswordReg2.PasswordChar = '\0';
+            }
+            else
+            {
+                txtPasswordReg1.PasswordChar = '*';
+                txtPasswordReg2.PasswordChar = '*';
+            }
+        }
+
+        private void chkShowPasswordEntr_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkShowPasswordEntr.Checked)
+                txtPasswordEntr.PasswordChar = '\0';
+            else
+                txtPasswordEntr.PasswordChar = '*';
         }
     }
 }

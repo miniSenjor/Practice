@@ -35,7 +35,7 @@ namespace Practika
             button.IconColor = foreColor;
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private void iBtnHome_Click(object sender, EventArgs e)
         {
             IconButton button = (IconButton) sender;
             SetButtonColor(button, activeBackgroundColor, activeForegroundColor);
@@ -43,11 +43,11 @@ namespace Practika
             panelLeft1.Visible = true;
             panelLeft2.Visible = false;
             panelLeft3.Visible = false;
-            SetButtonColor(iconButton2, defaultBackgroundColor, defaultForegroundColor);
-            SetButtonColor(iconButton3, defaultBackgroundColor, defaultForegroundColor);
+            SetButtonColor(iBtnSearch, defaultBackgroundColor, defaultForegroundColor);
+            SetButtonColor(iBtnBasket, defaultBackgroundColor, defaultForegroundColor);
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
+        private void iBtnSearch_Click(object sender, EventArgs e)
         {
             IconButton button = (IconButton)sender;
             SetButtonColor(button, activeBackgroundColor, activeForegroundColor);
@@ -55,11 +55,11 @@ namespace Practika
             panelLeft2.Visible = true;
             panelLeft1.Visible = false;
             panelLeft3.Visible = false;
-            SetButtonColor(iconButton1, defaultBackgroundColor, defaultForegroundColor);
-            SetButtonColor(iconButton3, defaultBackgroundColor, defaultForegroundColor);
+            SetButtonColor(iBtnHome, defaultBackgroundColor, defaultForegroundColor);
+            SetButtonColor(iBtnBasket, defaultBackgroundColor, defaultForegroundColor);
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private void iBtnBasket_Click(object sender, EventArgs e)
         {
             IconButton button = (IconButton)sender;
             SetButtonColor(button, activeBackgroundColor, activeForegroundColor);
@@ -67,36 +67,36 @@ namespace Practika
             panelLeft3.Visible = true;
             panelLeft2.Visible = false;
             panelLeft1.Visible = false;
-            SetButtonColor(iconButton2, defaultBackgroundColor, defaultForegroundColor);
-            SetButtonColor(iconButton1, defaultBackgroundColor, defaultForegroundColor);
+            SetButtonColor(iBtnSearch, defaultBackgroundColor, defaultForegroundColor);
+            SetButtonColor(iBtnHome, defaultBackgroundColor, defaultForegroundColor);
         }
 
-        private void iconButton4_Click(object sender, EventArgs e)
+        private void iBtnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void iconButton6_Click(object sender, EventArgs e)
+        private void iBtnWindowMin_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void iconButton7_Click(object sender, EventArgs e)
+        private void iBtnWindowMax_Click(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
             {
                 this.WindowState = FormWindowState.Maximized;
                 this.StartPosition = FormStartPosition.CenterScreen;
-                iconButton7.IconChar= IconChar.WindowRestore;
+                iBtnWindowMax.IconChar= IconChar.WindowRestore;
             }
             else
             {
                 this.WindowState = FormWindowState.Normal;
-                iconButton7.IconChar = IconChar.WindowMaximize;
+                iBtnWindowMax.IconChar = IconChar.WindowMaximize;
             }
         }
 
-        private void iconButton5_Click(object sender, EventArgs e)
+        private void iBtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
