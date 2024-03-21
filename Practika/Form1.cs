@@ -1,21 +1,23 @@
 ﻿using FontAwesome.Sharp;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Practika
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        public string Role;
+        public Form1(string role)
         {
             InitializeComponent();
+            Role = role;
+            lbRole.Text = Role;
         }
 
         bool dragging = false;
@@ -27,6 +29,25 @@ namespace Practika
 
         private Color defaultBackgroundColor = Color.FromArgb(46, 46, 50);
         private Color defaultForegroundColor = Color.FromArgb(200, 200, 200);
+
+        private SqlConnection conn = null;
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            guna2TabControl1.TabMenuVisible = false;
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Farm"].ConnectionString);
+            conn.Open();
+            List<string> category = new List<string>();
+            SqlCommand selectCategory = new SqlCommand("SELECT name FROM Category", conn);
+            SqlDataReader reader = selectCategory.ExecuteReader();
+            cbCategory.Items.Clear();
+            while (reader.Read())
+            {
+                object value = reader.GetValue(0);
+                category.Add(value!=DBNull.Value ? value.ToString() : "");
+            }
+            cbCategory.Items.AddRange(category.ToArray());
+        }
 
         private void SetButtonColor(IconButton button, Color backColor, Color foreColor)
         {
@@ -45,6 +66,7 @@ namespace Practika
             panelLeft3.Visible = false;
             SetButtonColor(iBtnSearch, defaultBackgroundColor, defaultForegroundColor);
             SetButtonColor(iBtnBasket, defaultBackgroundColor, defaultForegroundColor);
+            guna2TabControl1.SelectedIndex = 0;
         }
 
         private void iBtnSearch_Click(object sender, EventArgs e)
@@ -57,6 +79,7 @@ namespace Practika
             panelLeft3.Visible = false;
             SetButtonColor(iBtnHome, defaultBackgroundColor, defaultForegroundColor);
             SetButtonColor(iBtnBasket, defaultBackgroundColor, defaultForegroundColor);
+            guna2TabControl1.SelectedIndex = 1;
         }
 
         private void iBtnBasket_Click(object sender, EventArgs e)
@@ -69,11 +92,12 @@ namespace Practika
             panelLeft1.Visible = false;
             SetButtonColor(iBtnSearch, defaultBackgroundColor, defaultForegroundColor);
             SetButtonColor(iBtnHome, defaultBackgroundColor, defaultForegroundColor);
+            guna2TabControl1.SelectedIndex = 2;
         }
 
         private void iBtnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void iBtnWindowMin_Click(object sender, EventArgs e)
@@ -98,7 +122,7 @@ namespace Practika
 
         private void iBtnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -131,6 +155,21 @@ namespace Practika
                 Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
                 this.Location = Point.Add(dragFormPoint, new Size(dif));
             }
+        }
+
+        private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter($"SELECT Product.name AS N'Название', price AS N'Цена', quantity AS N'Кол-во' FROM Product JOIN Category ON Product.id_category = Category.id WHERE Category.name = N'{cbCategory.SelectedItem.ToString()}'; ", conn);
+
+            DataTable dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+            guna2DataGridView1.DataSource = dt;
+            guna2DataGridView1.ColumnHeadersHeight = 60;
+        }
+
+        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MessageBox.Show("hhh");
         }
     }
 }

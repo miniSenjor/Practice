@@ -45,7 +45,7 @@
             this.txtPasswordEntr = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtLoginEntr = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnEntr = new Guna.UI2.WinForms.Guna2Button();
-            this.iconButton5 = new FontAwesome.Sharp.IconButton();
+            this.iBtnExit = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.guna2TabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -330,27 +330,27 @@
             this.btnEntr.Text = "Вход";
             this.btnEntr.Click += new System.EventHandler(this.btnEntr_Click);
             // 
-            // iconButton5
+            // iBtnExit
             // 
-            this.iconButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconButton5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconButton5.FlatAppearance.BorderSize = 0;
-            this.iconButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.iconButton5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.iconButton5.IconChar = FontAwesome.Sharp.IconChar.TimesCircle;
-            this.iconButton5.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton5.IconSize = 35;
-            this.iconButton5.Location = new System.Drawing.Point(525, 4);
-            this.iconButton5.Margin = new System.Windows.Forms.Padding(4);
-            this.iconButton5.Name = "iconButton5";
-            this.iconButton5.Size = new System.Drawing.Size(37, 41);
-            this.iconButton5.TabIndex = 6;
-            this.iconButton5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButton5.UseVisualStyleBackColor = true;
-            this.iconButton5.Click += new System.EventHandler(this.iconButton5_Click);
+            this.iBtnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iBtnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iBtnExit.FlatAppearance.BorderSize = 0;
+            this.iBtnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iBtnExit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.iBtnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnExit.IconChar = FontAwesome.Sharp.IconChar.TimesCircle;
+            this.iBtnExit.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iBtnExit.IconSize = 35;
+            this.iBtnExit.Location = new System.Drawing.Point(525, 4);
+            this.iBtnExit.Margin = new System.Windows.Forms.Padding(4);
+            this.iBtnExit.Name = "iBtnExit";
+            this.iBtnExit.Size = new System.Drawing.Size(37, 41);
+            this.iBtnExit.TabIndex = 6;
+            this.iBtnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iBtnExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iBtnExit.UseVisualStyleBackColor = true;
+            this.iBtnExit.Click += new System.EventHandler(this.iBtnExit_Click);
             // 
             // FormLogin
             // 
@@ -358,7 +358,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(572, 690);
-            this.Controls.Add(this.iconButton5);
+            this.Controls.Add(this.iBtnExit);
             this.Controls.Add(this.guna2TabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -367,6 +367,7 @@
             this.Name = "FormLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormLogin";
+            this.Load += new System.EventHandler(this.FormLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.guna2TabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -395,6 +396,6 @@
         private Guna.UI2.WinForms.Guna2CheckBox chkShowPasswordEntr;
         private Guna.UI2.WinForms.Guna2TextBox txtPasswordEntr;
         private Guna.UI2.WinForms.Guna2TextBox txtLoginEntr;
-        private FontAwesome.Sharp.IconButton iconButton5;
+        private FontAwesome.Sharp.IconButton iBtnExit;
     }
 }
