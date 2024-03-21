@@ -35,7 +35,8 @@ namespace Practika
             command = new SqlCommand($"INSERT INTO [dbo].[User] (login, password, role) VALUES (N'{log}', N'{pas1}', 'user');", sqlConnection);
             command.ExecuteNonQuery().ToString();
             role = "user";
-            Form1 form = new Form1(role);
+            Form1 form = new Form1(role, log);
+            this.Hide();
             form.ShowDialog();
             return;
         }
@@ -53,8 +54,14 @@ namespace Practika
             }
             command = new SqlCommand($"SELECT role FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';", sqlConnection);
             role = command.ExecuteScalar().ToString();
-            Form1 form = new Form1(role);
+            Form1 form = new Form1(role, log);
+            this.Visible = false;
             form.ShowDialog();
+            try
+            {
+                this.Visible = true;
+            }
+            catch { }
             return;
         }
 

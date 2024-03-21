@@ -7,17 +7,21 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Practika;
+using System.Web.Security;
 
 namespace Practika
 {
     public partial class Form1 : Form
     {
         public string Role;
-        public Form1(string role)
+        public string Login;
+        public Form1(string role, string login)
         {
             InitializeComponent();
             Role = role;
             lbRole.Text = Role;
+            Login = login;
         }
 
         bool dragging = false;
@@ -159,17 +163,31 @@ namespace Practika
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter($"SELECT Product.name AS N'Название', price AS N'Цена', quantity AS N'Кол-во' FROM Product JOIN Category ON Product.id_category = Category.id WHERE Category.name = N'{cbCategory.SelectedItem.ToString()}'; ", conn);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter($"SELECT Product.name AS N'Название', price AS N'Цена', quantity AS N'Кол-во', Product.id FROM Product JOIN Category ON Product.id_category = Category.id WHERE Category.name = N'{cbCategory.SelectedItem.ToString()}'; ", conn);
 
             DataTable dt = new DataTable();
             sqlDataAdapter.Fill(dt);
             guna2DataGridView1.DataSource = dt;
             guna2DataGridView1.ColumnHeadersHeight = 60;
+            guna2DataGridView1.Columns[3].Width = 0;
         }
 
         private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("hhh");
+            string name;
+            int price, quantity;
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow selectedRow = guna2DataGridView1.Rows[e.RowIndex];
+
+                name = selectedRow.Cells[0].Value.ToString();
+                price = int.Parse(selectedRow.Cells[1].Value.ToString());
+                quantity = int.Parse(selectedRow.Cells[2].Value.ToString());
+
+                // Теперь у вас есть значения price, quantity и name для выбранной строки
+                FormMakePuchase formMakePuchase = new FormMakePuchase(name, price, quantity, Login);
+                formMakePuchase.ShowDialog();
+            }
         }
     }
 }
