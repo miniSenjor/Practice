@@ -8,8 +8,10 @@ namespace Practika
 {
     public partial class FormLogin : Form
     {
+        private DB db;
         public FormLogin()
         {
+            db = new DB();
             InitializeComponent();
         }
 
@@ -25,6 +27,7 @@ namespace Practika
             string pas1 = txtPasswordReg1.Text;
             string pas2 = txtPasswordReg2.Text;
             string log = txtLoginReg.Text;
+            int idUser;
             SqlCommand command = new SqlCommand($"SELECT * FROM [dbo].[User] WHERE login = '{log}'", sqlConnection);
             if (pas1 != pas2 || log == "" || command.ExecuteScalar() != null)
             {
@@ -34,8 +37,11 @@ namespace Practika
             }
             command = new SqlCommand($"INSERT INTO [dbo].[User] (login, password, role) VALUES (N'{log}', N'{pas1}', 'user');", sqlConnection);
             command.ExecuteNonQuery().ToString();
+            command = new SqlCommand($"SELECT id FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas1}';", sqlConnection);
+            idUser = Convert.ToInt32(command.ExecuteScalar());
             role = "user";
-            Form1 form = new Form1(role, log);
+            Form1 form = new Form1(role, log, idUser);
+            sqlConnection.Close();
             this.Hide();
             form.ShowDialog();
             return;
@@ -45,6 +51,7 @@ namespace Practika
         {
             string pas = txtPasswordEntr.Text;
             string log = txtLoginEntr.Text;
+            int idUser;
             SqlCommand command = new SqlCommand($"SELECT * FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';", sqlConnection);
             if (log == "" || command.ExecuteScalar() == null)
             {
@@ -52,14 +59,17 @@ namespace Practika
                 formError.ShowDialog();
                 return;
             }
-            command = new SqlCommand($"SELECT role FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';", sqlConnection);
+            command = new SqlCommand($"SELECT id FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';", sqlConnection);
+            idUser = Convert.ToInt32(command.ExecuteScalar());
+            command = new SqlCommand($"SELECT role FROM [dbo].[User] WHERE id = '{idUser}';", sqlConnection);
             role = command.ExecuteScalar().ToString();
-            Form1 form = new Form1(role, log);
+            Form1 form = new Form1(role, log, idUser);
+            sqlConnection.Close();
             this.Visible = false;
             form.ShowDialog();
             try
             {
-                this.Visible = true;
+                //this.Visible = true;
             }
             catch { }
             return;

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,21 +12,48 @@ namespace Practika
 {
     public partial class FormMakePuchase : Form
     {
-        public FormMakePuchase(string product, int price, int max, string login)
+        public FormMakePuchase(int idProduct, string productName, int price, int max, int idUser, SqlConnection conn)
         {
             InitializeComponent();
-            Product = product;
+            IdProduct = idProduct;
+            ProductName = productName;
             Max = max;
-            Login = login;
+            IdUser = idUser;
+            sqlConn = conn;
+            Price = price;
         }
 
-        private string Product;
+        private int IdProduct;
+        private string ProductName;
         private int Max;
-        private string Login;
+        private int Price;
+        private int IdUser;
+        private SqlConnection sqlConn;
 
         private void btnMakePurchase_Click(object sender, EventArgs e)
         {
+            int quntity = int.Parse(nudQunatityProduct.Value.ToString());
+            SqlCommand command = new SqlCommand($"INSERT INTO Purchase (user_id, product_id, quantity, price) VALUES ('{IdUser}', '{IdProduct}', {quntity}, {Price*quntity})", sqlConn);
+            command.ExecuteNonQuery();
+            command = new SqlCommand($"UPDATE Product SET quantity = quantity - {quntity} WHERE id = {IdProduct};", sqlConn);
+            command.ExecuteNonQuery();
+            this.Close();
+        }
 
+        private void FormMakePuchase_Load(object sender, EventArgs e)
+        {
+            lblProductName.Text = ProductName;
+            nudQunatityProduct.Maximum = Max;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void iBtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

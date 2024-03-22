@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Practika;
 using System.Web.Security;
+using System.Collections;
 
 namespace Practika
 {
@@ -16,12 +17,14 @@ namespace Practika
     {
         public string Role;
         public string Login;
-        public Form1(string role, string login)
+        public int IdUser;
+        public Form1(string role, string login, int idUser)
         {
             InitializeComponent();
             Role = role;
             lbRole.Text = Role;
             Login = login;
+            IdUser = idUser;
         }
 
         bool dragging = false;
@@ -51,6 +54,11 @@ namespace Practika
                 category.Add(value!=DBNull.Value ? value.ToString() : "");
             }
             cbCategory.Items.AddRange(category.ToArray());
+            if (Role=="user")
+            {
+                btnChangeProduct.Visible = false;
+                btnDeleteProduct.Visible = false;
+            }
         }
 
         private void SetButtonColor(IconButton button, Color backColor, Color foreColor)
@@ -97,6 +105,25 @@ namespace Practika
             SetButtonColor(iBtnSearch, defaultBackgroundColor, defaultForegroundColor);
             SetButtonColor(iBtnHome, defaultBackgroundColor, defaultForegroundColor);
             guna2TabControl1.SelectedIndex = 2;
+
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Farm"].ConnectionString))
+            {
+                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                {
+                    FormErrorShowDialog formErr = new FormErrorShowDialog("Не удалось подключиться к бд");
+                    formErr.ShowDialog();
+                    return;
+                }
+
+                using (SqlDataAdapter sda = new SqlDataAdapter($"SELECT Product.name, Purchase.quantity, Purchase.price FROM Product INNER JOIN Purchase ON Product.id = Purchase.product_id WHERE Purchase.user_id = {IdUser};", connection))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    dvgPurchase.DataSource = dt;
+                }
+            }
+            dvgPurchase.ColumnHeadersHeight = 50;
         }
 
         private void iBtnExit_Click(object sender, EventArgs e)
@@ -167,27 +194,52 @@ namespace Practika
 
             DataTable dt = new DataTable();
             sqlDataAdapter.Fill(dt);
-            guna2DataGridView1.DataSource = dt;
-            guna2DataGridView1.ColumnHeadersHeight = 60;
-            guna2DataGridView1.Columns[3].Width = 0;
+            dvgProduct.DataSource = dt;
+            dvgProduct.ColumnHeadersHeight = 50;
+            dvgProduct.Columns[3].Width = 0;
         }
 
+        int idProduct=0;
+        string productName;
+        int price, quantity;
         private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string name;
-            int price, quantity;
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                DataGridViewRow selectedRow = guna2DataGridView1.Rows[e.RowIndex];
+                DataGridViewRow selectedRow = dvgProduct.Rows[e.RowIndex];
 
-                name = selectedRow.Cells[0].Value.ToString();
+                idProduct = Convert.ToInt32(selectedRow.Cells[3].Value);
+                productName = selectedRow.Cells[0].Value.ToString();
+                txtProductName.Text = productName;
                 price = int.Parse(selectedRow.Cells[1].Value.ToString());
+                txtPrice.Text = price.ToString();
                 quantity = int.Parse(selectedRow.Cells[2].Value.ToString());
-
-                // Теперь у вас есть значения price, quantity и name для выбранной строки
-                FormMakePuchase formMakePuchase = new FormMakePuchase(name, price, quantity, Login);
-                formMakePuchase.ShowDialog();
+                txtQuantity.Text = quantity.ToString();
             }
+        }
+
+        private void btnDeleteProduct_Click(object sender, EventArgs e)
+        {
+            if (idProduct==0)
+            {
+                FormErrorShowDialog formError = new FormErrorShowDialog("Не выбран продукт");
+                formError.ShowDialog();
+                return;
+            }
+            SqlCommand sqlCommand = new SqlCommand($"DELETE FROM Product WHERE id = {idProduct};", conn);
+            sqlCommand.ExecuteNonQuery();
+            idProduct = 0;
+        }
+
+        private void btnChangeProduct_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMakePurchase_Click(object sender, EventArgs e)
+        {
+            FormMakePuchase formMakePuchase = new FormMakePuchase(idProduct, productName, price, quantity, IdUser, conn);
+            formMakePuchase.ShowDialog();
         }
     }
 }
