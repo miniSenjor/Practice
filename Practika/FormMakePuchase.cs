@@ -1,26 +1,20 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Practika
 {
     public partial class FormMakePuchase : Form
     {
-        public FormMakePuchase(int idProduct, string productName, int price, int max, int idUser, SqlConnection conn)
+        private DB db;
+        public FormMakePuchase(int idProduct, string productName, int price, int max, int idUser)
         {
             InitializeComponent();
             IdProduct = idProduct;
             ProductName = productName;
             Max = max;
             IdUser = idUser;
-            sqlConn = conn;
             Price = price;
+            db = new DB();
         }
 
         private int IdProduct;
@@ -28,15 +22,23 @@ namespace Practika
         private int Max;
         private int Price;
         private int IdUser;
-        private SqlConnection sqlConn;
 
         private void btnMakePurchase_Click(object sender, EventArgs e)
         {
-            int quntity = int.Parse(nudQunatityProduct.Value.ToString());
-            SqlCommand command = new SqlCommand($"INSERT INTO Purchase (user_id, product_id, quantity, price) VALUES ('{IdUser}', '{IdProduct}', {quntity}, {Price*quntity})", sqlConn);
-            command.ExecuteNonQuery();
-            command = new SqlCommand($"UPDATE Product SET quantity = quantity - {quntity} WHERE id = {IdProduct};", sqlConn);
-            command.ExecuteNonQuery();
+            FormErrorShowDialog form;
+            int quntity = Convert.ToInt32(nudQunatityProduct.Value);
+            if (quntity<=0 || quntity>Max)
+            {
+                form = new FormErrorShowDialog("Ошибка ввода количества", "Ошибка");
+                form.ShowDialog();
+                return;
+            }
+            string query = $"INSERT INTO Purchase (user_id, product_id, quantity, price) VALUES ('{IdUser}', '{IdProduct}', {quntity}, {Price * quntity})";
+            db.SqlSimpleQuery(query);
+            query = $"UPDATE Product SET quantity = quantity - {quntity} WHERE id = {IdProduct};";
+            db.SqlSimpleQuery(query);
+            form = new FormErrorShowDialog("Заказ успешно создан", "Успех");
+            form.ShowDialog();
             this.Close();
         }
 

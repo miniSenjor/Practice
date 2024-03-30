@@ -9,7 +9,13 @@ namespace Practika
         {
             InitializeComponent();
             label1.Text = firstString;
-            label2.Text = secondString;
+            if (secondString.Length >50)
+            {
+                label2.Text = secondString.Substring(0, 50);
+                label3.Text = secondString.Substring(50);
+            }
+            else
+                label2.Text = secondString;
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)

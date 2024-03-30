@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace Practika
 {
@@ -15,35 +12,23 @@ namespace Practika
             InitializeComponent();
         }
 
-        private SqlConnection sqlConnection = null;
         string role;
-        private void iBtnExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        int idUser;
 
         private void btnReg_Click(object sender, EventArgs e)
         {
             string pas1 = txtPasswordReg1.Text;
             string pas2 = txtPasswordReg2.Text;
             string log = txtLoginReg.Text;
-            int idUser;
-            SqlCommand command = new SqlCommand($"SELECT * FROM [dbo].[User] WHERE login = '{log}'", sqlConnection);
-            if (pas1 != pas2 || log == "" || command.ExecuteScalar() != null)
+
+            string query = $"SELECT * FROM [dbo].[User] WHERE login = '{log}'";
+            if (pas1 != pas2 || log == "" || db.SqlScalarQuery(query) != null)
             {
-                FormErrorShowDialog formError = new FormErrorShowDialog("Введен неверный логин или пароль");
+                FormErrorShowDialog formError = new FormErrorShowDialog("Введен неверный логин или пароль", "Ошибка");
                 formError.ShowDialog();
                 return;
             }
-            command = new SqlCommand($"INSERT INTO [dbo].[User] (login, password, role) VALUES (N'{log}', N'{pas1}', 'user');", sqlConnection);
-            command.ExecuteNonQuery().ToString();
-            command = new SqlCommand($"SELECT id FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas1}';", sqlConnection);
-            idUser = Convert.ToInt32(command.ExecuteScalar());
-            role = "user";
-            Form1 form = new Form1(role, log, idUser);
-            sqlConnection.Close();
-            this.Hide();
-            form.ShowDialog();
+            showMainForm(log, pas1);
             return;
         }
 
@@ -51,25 +36,35 @@ namespace Practika
         {
             string pas = txtPasswordEntr.Text;
             string log = txtLoginEntr.Text;
-            int idUser;
-            SqlCommand command = new SqlCommand($"SELECT * FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';", sqlConnection);
-            if (log == "" || command.ExecuteScalar() == null)
+            string query = $"SELECT * FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';";
+            if (log == "" || db.SqlScalarQuery(query) == null)
             {
-                FormErrorShowDialog formError = new FormErrorShowDialog("Введен неверный логин или пароль");
+                FormErrorShowDialog formError = new FormErrorShowDialog("Введен неверный логин или пароль", "Ошибка");
                 formError.ShowDialog();
                 return;
             }
-            command = new SqlCommand($"SELECT id FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';", sqlConnection);
-            idUser = Convert.ToInt32(command.ExecuteScalar());
-            command = new SqlCommand($"SELECT role FROM [dbo].[User] WHERE id = '{idUser}';", sqlConnection);
-            role = command.ExecuteScalar().ToString();
+            showMainForm(log, pas);
+            return;
+        }
+
+        /// <summary>
+        /// Загрузка главной формы
+        /// </summary>
+        /// <param name="log">логин пользователя</param>
+        /// <param name="pas">пароль пользователя</param>
+        private void showMainForm(string log, string pas)
+        {
+            string query, answer;
+            query = $"SELECT id FROM [dbo].[User] WHERE login = '{log}' AND password = '{pas}';";
+            idUser = Convert.ToInt32(db.ReturnStringValue(query, out answer));
+            query = $"SELECT role FROM [dbo].[User] WHERE id = '{idUser}';";
+            role = db.ReturnStringValue(query, out answer);
             Form1 form = new Form1(role, log, idUser);
-            sqlConnection.Close();
             this.Visible = false;
             form.ShowDialog();
             try
             {
-                //this.Visible = true;
+                this.Visible = true;
             }
             catch { }
             return;
@@ -96,11 +91,13 @@ namespace Practika
             else
                 txtPasswordEntr.PasswordChar = '*';
         }
+        private void iBtnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
-            sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["Farm"].ConnectionString);
-            sqlConnection.Open();
         }
     }
 }

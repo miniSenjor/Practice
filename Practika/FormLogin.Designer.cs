@@ -46,6 +46,7 @@
             this.txtLoginEntr = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnEntr = new Guna.UI2.WinForms.Guna2Button();
             this.iBtnExit = new FontAwesome.Sharp.IconButton();
+            this.iBtnWindowMax = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.guna2TabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -115,6 +116,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(50)))));
+            this.tabPage1.Controls.Add(this.iBtnWindowMax);
             this.tabPage1.Controls.Add(this.chkShowPasswordReg);
             this.tabPage1.Controls.Add(this.txtPasswordReg2);
             this.tabPage1.Controls.Add(this.txtPasswordReg1);
@@ -352,6 +354,27 @@
             this.iBtnExit.UseVisualStyleBackColor = true;
             this.iBtnExit.Click += new System.EventHandler(this.iBtnExit_Click);
             // 
+            // iBtnWindowMax
+            // 
+            this.iBtnWindowMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iBtnWindowMax.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iBtnWindowMax.FlatAppearance.BorderSize = 0;
+            this.iBtnWindowMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iBtnWindowMax.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.iBtnWindowMax.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnWindowMax.IconChar = FontAwesome.Sharp.IconChar.Eraser;
+            this.iBtnWindowMax.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnWindowMax.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iBtnWindowMax.IconSize = 35;
+            this.iBtnWindowMax.Location = new System.Drawing.Point(254, 231);
+            this.iBtnWindowMax.Margin = new System.Windows.Forms.Padding(4);
+            this.iBtnWindowMax.Name = "iBtnWindowMax";
+            this.iBtnWindowMax.Size = new System.Drawing.Size(37, 41);
+            this.iBtnWindowMax.TabIndex = 8;
+            this.iBtnWindowMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iBtnWindowMax.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iBtnWindowMax.UseVisualStyleBackColor = true;
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -397,5 +420,6 @@
         private Guna.UI2.WinForms.Guna2TextBox txtPasswordEntr;
         private Guna.UI2.WinForms.Guna2TextBox txtLoginEntr;
         private FontAwesome.Sharp.IconButton iBtnExit;
+        private FontAwesome.Sharp.IconButton iBtnWindowMax;
     }
 }
