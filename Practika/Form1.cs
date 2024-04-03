@@ -7,8 +7,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using Guna.UI2.WinForms;
-using System.Reflection;
-using System.Xml.Linq;
 
 namespace Practika
 {
@@ -157,10 +155,14 @@ namespace Practika
 
                 string query;
                 if (Role=="admin")
+                {
                     query = $"SELECT Purchase.id AS 'idPurchase', Product.name AS N'Название', Purchase.quantity AS N'Кол-во', Purchase.price AS N'Стоимость', Purchase.user_id FROM Product INNER JOIN Purchase ON Product.id = Purchase.product_id;";
+                    lbPurchase.Text = "Все заказы";
+                }
                 else
                 {
                     query = $"SELECT Product.name AS N'Название', Purchase.quantity AS N'Кол-во', Purchase.price AS N'Стоимость', Purchase.id FROM Product INNER JOIN Purchase ON Product.id = Purchase.product_id WHERE Purchase.user_id = {IdUser};";
+                    lbPurchase.Text = "Ваши заказы";
                 }
                 db.SqlReturnData(query, dgvPurchase);
                 dgvPurchase.ColumnHeadersHeight = 50;
@@ -453,6 +455,8 @@ namespace Practika
             {
                 dgvProduct.ColumnHeadersHeight = 50;
                 dgvProduct.Columns[3].Width = 0;
+                FormErrorShowDialog form = new FormErrorShowDialog("Новый товар успешно добавлен", "Успех");
+                form.ShowDialog();
             }
         }
 

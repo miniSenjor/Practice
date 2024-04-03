@@ -28,6 +28,8 @@ namespace Practika
                 formError.ShowDialog();
                 return;
             }
+            ClearTxtReg();
+            ClearTxtEntr();
             showMainForm(log, pas1);
             return;
         }
@@ -43,6 +45,8 @@ namespace Practika
                 formError.ShowDialog();
                 return;
             }
+            ClearTxtReg();
+            ClearTxtEntr();
             showMainForm(log, pas);
             return;
         }
@@ -98,6 +102,29 @@ namespace Practika
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
+        }
+
+        private void iBtnRegClear_Click(object sender, EventArgs e)
+        {
+            ClearTxtReg();
+        }
+
+        private void iBtnEntrClear_Click(object sender, EventArgs e)
+        {
+            ClearTxtEntr();
+        }
+
+        private void ClearTxtEntr()
+        {
+            txtLoginEntr.Text = "";
+            txtPasswordEntr.Text = "";
+        }
+
+        private void ClearTxtReg()
+        {
+            txtLoginReg.Text = "";
+            txtPasswordReg1.Text = "";
+            txtPasswordReg2.Text = "";
         }
     }
 }

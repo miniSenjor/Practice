@@ -35,18 +35,20 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.iBtnRegClear = new FontAwesome.Sharp.IconButton();
             this.chkShowPasswordReg = new Guna.UI2.WinForms.Guna2CheckBox();
             this.txtPasswordReg2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPasswordReg1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtLoginReg = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnReg = new Guna.UI2.WinForms.Guna2Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.iBtnEntrClear = new FontAwesome.Sharp.IconButton();
             this.chkShowPasswordEntr = new Guna.UI2.WinForms.Guna2CheckBox();
             this.txtPasswordEntr = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtLoginEntr = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnEntr = new Guna.UI2.WinForms.Guna2Button();
             this.iBtnExit = new FontAwesome.Sharp.IconButton();
-            this.iBtnWindowMax = new FontAwesome.Sharp.IconButton();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.guna2TabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -116,7 +118,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(50)))));
-            this.tabPage1.Controls.Add(this.iBtnWindowMax);
+            this.tabPage1.Controls.Add(this.iBtnRegClear);
             this.tabPage1.Controls.Add(this.chkShowPasswordReg);
             this.tabPage1.Controls.Add(this.txtPasswordReg2);
             this.tabPage1.Controls.Add(this.txtPasswordReg1);
@@ -130,6 +132,29 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Регистрация";
             // 
+            // iBtnRegClear
+            // 
+            this.iBtnRegClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iBtnRegClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iBtnRegClear.FlatAppearance.BorderSize = 0;
+            this.iBtnRegClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iBtnRegClear.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.iBtnRegClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnRegClear.IconChar = FontAwesome.Sharp.IconChar.Eraser;
+            this.iBtnRegClear.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnRegClear.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iBtnRegClear.IconSize = 35;
+            this.iBtnRegClear.Location = new System.Drawing.Point(269, 231);
+            this.iBtnRegClear.Margin = new System.Windows.Forms.Padding(4);
+            this.iBtnRegClear.Name = "iBtnRegClear";
+            this.iBtnRegClear.Size = new System.Drawing.Size(37, 41);
+            this.iBtnRegClear.TabIndex = 8;
+            this.iBtnRegClear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iBtnRegClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.iBtnRegClear, "Очистить поля");
+            this.iBtnRegClear.UseVisualStyleBackColor = true;
+            this.iBtnRegClear.Click += new System.EventHandler(this.iBtnRegClear_Click);
+            // 
             // chkShowPasswordReg
             // 
             this.chkShowPasswordReg.AutoSize = true;
@@ -140,7 +165,7 @@
             this.chkShowPasswordReg.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkShowPasswordReg.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.chkShowPasswordReg.ForeColor = System.Drawing.Color.White;
-            this.chkShowPasswordReg.Location = new System.Drawing.Point(80, 241);
+            this.chkShowPasswordReg.Location = new System.Drawing.Point(80, 238);
             this.chkShowPasswordReg.Margin = new System.Windows.Forms.Padding(4);
             this.chkShowPasswordReg.Name = "chkShowPasswordReg";
             this.chkShowPasswordReg.Size = new System.Drawing.Size(166, 27);
@@ -237,6 +262,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(50)))));
+            this.tabPage2.Controls.Add(this.iBtnEntrClear);
             this.tabPage2.Controls.Add(this.chkShowPasswordEntr);
             this.tabPage2.Controls.Add(this.txtPasswordEntr);
             this.tabPage2.Controls.Add(this.txtLoginEntr);
@@ -249,6 +275,29 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Вход";
             // 
+            // iBtnEntrClear
+            // 
+            this.iBtnEntrClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iBtnEntrClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iBtnEntrClear.FlatAppearance.BorderSize = 0;
+            this.iBtnEntrClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iBtnEntrClear.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.iBtnEntrClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnEntrClear.IconChar = FontAwesome.Sharp.IconChar.Eraser;
+            this.iBtnEntrClear.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.iBtnEntrClear.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iBtnEntrClear.IconSize = 35;
+            this.iBtnEntrClear.Location = new System.Drawing.Point(270, 195);
+            this.iBtnEntrClear.Margin = new System.Windows.Forms.Padding(4);
+            this.iBtnEntrClear.Name = "iBtnEntrClear";
+            this.iBtnEntrClear.Size = new System.Drawing.Size(37, 41);
+            this.iBtnEntrClear.TabIndex = 11;
+            this.iBtnEntrClear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iBtnEntrClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.iBtnEntrClear, "Очистить поля");
+            this.iBtnEntrClear.UseVisualStyleBackColor = true;
+            this.iBtnEntrClear.Click += new System.EventHandler(this.iBtnEntrClear_Click);
+            // 
             // chkShowPasswordEntr
             // 
             this.chkShowPasswordEntr.AutoSize = true;
@@ -259,7 +308,7 @@
             this.chkShowPasswordEntr.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkShowPasswordEntr.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.chkShowPasswordEntr.ForeColor = System.Drawing.Color.White;
-            this.chkShowPasswordEntr.Location = new System.Drawing.Point(80, 203);
+            this.chkShowPasswordEntr.Location = new System.Drawing.Point(80, 202);
             this.chkShowPasswordEntr.Margin = new System.Windows.Forms.Padding(4);
             this.chkShowPasswordEntr.Name = "chkShowPasswordEntr";
             this.chkShowPasswordEntr.Size = new System.Drawing.Size(166, 27);
@@ -344,7 +393,7 @@
             this.iBtnExit.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.iBtnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iBtnExit.IconSize = 35;
-            this.iBtnExit.Location = new System.Drawing.Point(525, 4);
+            this.iBtnExit.Location = new System.Drawing.Point(506, 4);
             this.iBtnExit.Margin = new System.Windows.Forms.Padding(4);
             this.iBtnExit.Name = "iBtnExit";
             this.iBtnExit.Size = new System.Drawing.Size(37, 41);
@@ -354,33 +403,12 @@
             this.iBtnExit.UseVisualStyleBackColor = true;
             this.iBtnExit.Click += new System.EventHandler(this.iBtnExit_Click);
             // 
-            // iBtnWindowMax
-            // 
-            this.iBtnWindowMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iBtnWindowMax.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iBtnWindowMax.FlatAppearance.BorderSize = 0;
-            this.iBtnWindowMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iBtnWindowMax.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.iBtnWindowMax.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.iBtnWindowMax.IconChar = FontAwesome.Sharp.IconChar.Eraser;
-            this.iBtnWindowMax.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.iBtnWindowMax.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iBtnWindowMax.IconSize = 35;
-            this.iBtnWindowMax.Location = new System.Drawing.Point(254, 231);
-            this.iBtnWindowMax.Margin = new System.Windows.Forms.Padding(4);
-            this.iBtnWindowMax.Name = "iBtnWindowMax";
-            this.iBtnWindowMax.Size = new System.Drawing.Size(37, 41);
-            this.iBtnWindowMax.TabIndex = 8;
-            this.iBtnWindowMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iBtnWindowMax.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iBtnWindowMax.UseVisualStyleBackColor = true;
-            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(50)))));
-            this.ClientSize = new System.Drawing.Size(572, 690);
+            this.ClientSize = new System.Drawing.Size(553, 690);
             this.Controls.Add(this.iBtnExit);
             this.Controls.Add(this.guna2TabControl1);
             this.Controls.Add(this.label1);
@@ -420,6 +448,8 @@
         private Guna.UI2.WinForms.Guna2TextBox txtPasswordEntr;
         private Guna.UI2.WinForms.Guna2TextBox txtLoginEntr;
         private FontAwesome.Sharp.IconButton iBtnExit;
-        private FontAwesome.Sharp.IconButton iBtnWindowMax;
+        private FontAwesome.Sharp.IconButton iBtnRegClear;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private FontAwesome.Sharp.IconButton iBtnEntrClear;
     }
 }
