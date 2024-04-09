@@ -28,6 +28,8 @@ namespace Practika
                 formError.ShowDialog();
                 return;
             }
+            query = $"INSERT INTO [dbo].[User] (login, password, role) VALUES ('{log}', '{pas1}', 'user')";
+            db.SqlSimpleQuery(query);
             ClearTxtReg();
             ClearTxtEntr();
             showMainForm(log, pas1);
